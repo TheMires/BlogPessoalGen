@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { TokenState } from '../../../store/tokens/tokensReducer';
 import { useDispatch } from "react-redux";
 import { addToken } from '../../../store/tokens/actions';
+import {toast} from 'react-toastify';
 
 function Navbar() {
 
@@ -22,7 +23,16 @@ function Navbar() {
     function goLogout() {
         dispatch(addToken(''));
         setId('')
-        alert("Usuário deslogado")
+        toast.info('Usuário deslogado', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: "colored",
+            progress: undefined,
+    });
         navigate('/login')
     }
 
@@ -30,7 +40,7 @@ function Navbar() {
 
     if (token != "") {
         navbarComponent = <AppBar position="static">
-            <Toolbar variant="dense">
+            <Toolbar variant="dense" className="toolbar">
                 <Box className='cursor'>
                     <Typography variant="h5" color="inherit">
                         Blog Pessoal da Thami

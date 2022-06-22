@@ -5,6 +5,7 @@ import Usuario from "../../modelos/Usuario";
 import { Grid, Typography, Button, TextField, FormControl, InputLabel, Select } from '@material-ui/core';
 import { Box } from "@mui/material";
 import './CadastroUsuario.css';
+import { toast } from "react-toastify";
 
 function CadastroUsuario() {
 
@@ -61,13 +62,40 @@ function CadastroUsuario() {
         if (confirmarSenha === usuario.senha) {
             try {
                 await cadastroUsuario(`/api/Usuarios/cadastrar`, usuario, setUsuarioResultado)
-                alert('Usuario cadastrado com sucesso')
+                toast.success('Usuario cadastrado com sucesso', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    theme: "colored",
+                    progress: undefined,
+                });
             } catch (error) {
-                alert('Usuario já cadastrado, tente outro email!')
+                toast.error('Usuario já cadastrado, tente outro email!', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: false,
+                    theme: "colored",
+                    progress: undefined,
+                });
             }
 
         } else {
-            alert('Dados inconsistentes. Favor verificar as informações de cadastro.')
+            toast.error('Dados inconsistentes. Favor verificar as informações de cadastro.', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: false,
+                theme: "colored",
+                progress: undefined,
+            });
         }
     }
 
@@ -82,38 +110,38 @@ function CadastroUsuario() {
                         <TextField
                             value={usuario.nome}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
-                            id='nome' label='nome' variant='outlined' name='nome' margin='normal' fullWidth />
+                            id='nome' label='Nome' variant='outlined' name='nome' margin='normal' fullWidth />
 
                         <TextField
                             value={usuario.email}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
-                            id='email' label='email' variant='outlined' name='email' margin='normal' type='email' fullWidth />
+                            id='email' label='E-mail' variant='outlined' name='email' margin='normal' type='email' fullWidth />
 
                         <TextField
                             value={usuario.senha}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
-                            id='senha' label='senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
+                            id='senha' label='Senha' variant='outlined' name='senha' margin='normal' type='password' fullWidth />
 
 
                         <TextField
                             value={confirmarSenha}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => confirmarSenhaHandle(e)}
-                            id='confirmarSenha' label='confirmarSenha' variant='outlined' name='confirmarSenha' margin='normal' type='password' fullWidth />
+                            id='confirmarSenha' label='Confirme sua senha' variant='outlined' name='confirmarSenha' margin='normal' type='password' fullWidth />
 
                         <TextField
                             value={usuario.foto}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
-                            id='foto' label='foto' variant='outlined' name='foto' margin='normal' fullWidth />
+                            id='foto' label='Foto' variant='outlined' name='foto' margin='normal' fullWidth />
 
 
                         <FormControl
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updatedModel(e)}
                             variant="outlined">
-                            <InputLabel htmlFor="outlined-age-native-simple">tipo</InputLabel>
+                            <InputLabel htmlFor="outlined-age-native-simple">Tipo</InputLabel>
                             <Select
                                 value={usuario.tipo}
                                 native
-                                label="tipo"
+                                label="Tipo"
                                 inputProps={{
                                     name: 'tipo',
                                     id: 'outlined-age-native-simple',
